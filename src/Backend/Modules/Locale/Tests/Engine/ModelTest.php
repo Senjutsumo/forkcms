@@ -31,6 +31,51 @@ final class ModelTest extends WebTestCase
         $this->assertTrue(Model::exists(LoadLocale::backendCoreErrorData()['id']));
     }
 
+    public function testExistsByName(): void
+    {
+        $this->assertTrue(
+            Model::existsByName(
+                LoadLocale::backendCoreActionData()['name'],
+                LoadLocale::backendCoreActionData()['type'],
+                LoadLocale::backendCoreActionData()['module'],
+                LoadLocale::backendCoreActionData()['language'],
+                LoadLocale::backendCoreActionData()['application']
+            )
+        );
+
+        $this->assertTrue(
+            Model::existsByName(
+                LoadLocale::backendCoreActionData()['name'],
+                LoadLocale::backendCoreActionData()['type'],
+                LoadLocale::backendCoreActionData()['module'],
+                LoadLocale::backendCoreActionData()['language'],
+                LoadLocale::backendCoreActionData()['application'],
+                999
+            )
+        );
+
+        $this->assertFalse(
+            Model::existsByName(
+                'TestWrongName',
+                'act',
+                'Core',
+                'en',
+                'Frontend'
+            )
+        );
+
+        $this->assertFalse(
+            Model::existsByName(
+                'TestWrongLabel',
+                'act',
+                'Core',
+                'en',
+                'Frontend',
+                LoadLocale::backendCoreActionData()['id']
+            )
+        );
+    }
+
     public function testInsert(): void
     {
         $id = 9013;
