@@ -25,6 +25,12 @@ final class ModelTest extends WebTestCase
         );
     }
 
+    public function testExists(): void
+    {
+        $this->assertFalse(Model::exists(9999999));
+        $this->assertTrue(Model::exists(LoadLocale::backendCoreErrorData()['id']));
+    }
+
     public function testInsert(): void
     {
         $id = 9013;
