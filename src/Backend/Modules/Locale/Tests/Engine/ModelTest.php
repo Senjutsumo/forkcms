@@ -45,4 +45,13 @@ final class ModelTest extends WebTestCase
         $this->assertSame($id, $insertedId);
         $this->assertTrue(Model::exists($id));
     }
+
+    public function testDelete(): void
+    {
+        $id = LoadLocale::backendCoreActionData()['id'];
+        $this->assertTrue(Model::exists($id));
+
+        Model::delete([$id]);
+        $this->assertFalse(Model::exists($id));
+    }
 }
