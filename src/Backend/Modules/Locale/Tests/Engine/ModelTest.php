@@ -139,4 +139,16 @@ final class ModelTest extends WebTestCase
             )
         );
     }
+
+    public function testGetTypeName(): void
+    {
+        $this->assertSame('action', Model::getTypeName('act'));
+        $this->assertSame('error', Model::getTypeName('err'));
+        $this->assertSame('label', Model::getTypeName('lbl'));
+        $this->assertSame('message', Model::getTypeName('msg'));
+        $this->assertNotSame('action', Model::getTypeName('msg'));
+        $this->assertNotSame('error', Model::getTypeName('lbl'));
+        $this->assertNotSame('label', Model::getTypeName('act'));
+        $this->assertNotSame('message', Model::getTypeName('err'));
+    }
 }
