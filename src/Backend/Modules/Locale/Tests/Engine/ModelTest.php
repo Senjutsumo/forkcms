@@ -34,6 +34,21 @@ final class ModelTest extends WebTestCase
         $this->assertNotSame($typeArray, Model::TYPES);
     }
 
+    public function testGet(): void
+    {
+        // TODO: Change assertEquals to assertSame after switching to doctrine
+        $this->assertEquals(
+            LoadLocale::backendCoreErrorData(),
+            Model::get(9001)
+        );
+
+        $this->assertNotSame(LoadLocale::backendCoreActionData()['type'], 'err');
+        $this->assertSame(LoadLocale::backendCoreActionData()['type'], 'act');
+
+        $urlencoded =  urlencode(LoadLocale::backendCoreActionData()['value']);
+        $this->assertSame(LoadLocale::backendCoreActionData()['value'], urldecode($urlencoded));
+    }
+
     public function testExists(): void
     {
         $this->assertFalse(Model::exists(9999999));
