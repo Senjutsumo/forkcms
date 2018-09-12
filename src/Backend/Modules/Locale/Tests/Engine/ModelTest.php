@@ -25,6 +25,15 @@ final class ModelTest extends WebTestCase
         );
     }
 
+    public function testConstantTypes():void
+    {
+        $typeArray = ['act', 'err', 'lbl', 'msg'];
+        $this->assertSame($typeArray, Model::TYPES);
+
+        $typeArray = ['act', 'test', 'lbl', 'msg'];
+        $this->assertNotSame($typeArray, Model::TYPES);
+    }
+
     public function testExists(): void
     {
         $this->assertFalse(Model::exists(9999999));
