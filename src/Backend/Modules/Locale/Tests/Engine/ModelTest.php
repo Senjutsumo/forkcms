@@ -67,6 +67,17 @@ final class ModelTest extends WebTestCase
             )
         );
 
+        $this->assertFalse(
+            Model::existsByName(
+                LoadLocale::backendCoreActionData()['name'],
+                LoadLocale::backendCoreActionData()['type'],
+                LoadLocale::backendCoreActionData()['module'],
+                LoadLocale::backendCoreActionData()['language'],
+                LoadLocale::backendCoreActionData()['application'],
+                LoadLocale::backendCoreActionData()['id']
+            )
+        );
+
         $this->assertTrue(
             Model::existsByName(
                 LoadLocale::backendCoreActionData()['name'],
@@ -85,17 +96,6 @@ final class ModelTest extends WebTestCase
                 'Core',
                 'en',
                 'Frontend'
-            )
-        );
-
-        $this->assertFalse(
-            Model::existsByName(
-                'TestWrongLabel',
-                'act',
-                'Core',
-                'en',
-                'Frontend',
-                LoadLocale::backendCoreActionData()['id']
             )
         );
     }
