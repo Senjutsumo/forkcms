@@ -105,4 +105,29 @@ final class ModelTest extends WebTestCase
         Model::delete([$id]);
         $this->assertFalse(Model::exists($id));
     }
+
+    public function testGetByName(): void
+    {
+        $this->assertSame(
+            9001,
+            Model::getByName(
+                LoadLocale::backendCoreErrorData()['name'],
+                LoadLocale::backendCoreErrorData()['type'],
+                LoadLocale::backendCoreErrorData()['module'],
+                LoadLocale::backendCoreErrorData()['language'],
+                LoadLocale::backendCoreErrorData()['application']
+            )
+        );
+
+        $this->assertNotSame(
+            9002,
+            Model::getByName(
+                LoadLocale::backendCoreErrorData()['name'],
+                LoadLocale::backendCoreErrorData()['type'],
+                LoadLocale::backendCoreErrorData()['module'],
+                LoadLocale::backendCoreErrorData()['language'],
+                LoadLocale::backendCoreErrorData()['application']
+            )
+        );
+    }
 }
