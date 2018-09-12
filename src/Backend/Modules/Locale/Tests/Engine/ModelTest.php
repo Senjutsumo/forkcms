@@ -121,6 +121,45 @@ final class ModelTest extends WebTestCase
         $this->assertTrue(Model::exists($id));
     }
 
+    public function testUpdate(): void
+    {
+        $id = 9010;
+        $name = 'FrontendCoreMessage';
+        $value = 'frontend core message value';
+
+        $this->assertTrue(Model::exists($id));
+        $this->assertSame($name, LoadLocale::frontendCoreMessageData()['name']);
+        $this->assertSame($value, LoadLocale::frontendCoreMessageData()['value']);
+
+        $updatedRows = Model::update(
+            LoadLocale::getLocaleRecord(
+                $id,
+                LoadLocale::frontendCoreMessageData()['application'],
+                LoadLocale::frontendCoreMessageData()['module'],
+                LoadLocale::frontendCoreMessageData()['type'],
+                'FrontendCoreMessageUpdated',
+                'frontend core message value updated'
+            )
+        );
+
+        $this->assertSame(1, $updatedRows);
+        $this->assertSame('FrontendCoreMessageUpdated', Model::get(9010)['name']);
+        $this->assertSame('frontend core message value updated', Model::get(9010)['value']);
+
+        $updatedRows = Model::update(
+            LoadLocale::getLocaleRecord(
+                $id,
+                LoadLocale::frontendCoreMessageData()['application'],
+                LoadLocale::frontendCoreMessageData()['module'],
+                LoadLocale::frontendCoreMessageData()['type'],
+                'FrontendCoreMessageUpdated',
+                'frontend core message value updated'
+            )
+        );
+
+        $this->assertSame(0, $updatedRows);
+    }
+
     public function testDelete(): void
     {
         $id = LoadLocale::backendCoreActionData()['id'];
