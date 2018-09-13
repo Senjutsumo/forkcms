@@ -47,8 +47,11 @@ final class ModelTest extends WebTestCase
             Model::get(LoadLocale::backendCoreErrorData()['id'])
         );
 
-        $urlencoded =  urlencode(LoadLocale::backendCoreActionData()['value']);
-        $this->assertSame(LoadLocale::backendCoreActionData()['value'], urldecode($urlencoded));
+        // Is value decoded
+        $this->assertEquals(
+            Model::get(LoadLocale::backendCoreActionUrlEncodedData()['id'])['value'],
+            urldecode(LoadLocale::backendCoreActionUrlEncodedData()['value'])
+        );
     }
 
     public function testExists(): void

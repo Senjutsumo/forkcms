@@ -172,6 +172,7 @@ class Model
             [$id]
         );
 
+        // TODO: Check if this is useful, the values are now encoded with url function. urldecode is only for urlencode
         // actions are urlencoded
         if ($record['type'] === 'act') {
             $record['value'] = urldecode($record['value']);
