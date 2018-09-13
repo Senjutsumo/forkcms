@@ -104,18 +104,43 @@ final class ModelTest extends WebTestCase
 
     public function testInsert(): void
     {
-        $id = 9013;
+        $id = 9900;
 
+        // Check if ID is new
         $this->assertFalse(Model::exists($id));
 
+        // insert new data with action type
         $insertedId = Model::insert(
             LoadLocale::getLocaleRecord(
                 $id,
                 'Frontend',
                 'Core',
                 'act',
+                'TestInsertedAction',
+                LoadLocale::getEncodedTestValue()
+            )
+        );
+
+        // compare new id with the insertedId and see if it exists in the database
+        $this->assertSame($id, $insertedId);
+        $this->assertTrue(Model::exists($id));
+
+        // is the value url encoded
+        $this->assertSame(LoadLocale::getUrlTestValue(), Model::get(9900)['value']);
+
+        $id = 9901;
+
+        $this->assertFalse(Model::exists($id));
+
+        // insert new data without action type
+        $insertedId = Model::insert(
+            LoadLocale::getLocaleRecord(
+                $id,
+                'Frontend',
+                'Core',
+                'lbl',
                 'TestInsertedLabel',
-                'frontend core action value'
+                LoadLocale::getEncodedTestValue()
             )
         );
 
