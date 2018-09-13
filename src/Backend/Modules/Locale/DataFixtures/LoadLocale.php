@@ -21,6 +21,7 @@ class LoadLocale
                 self::frontendCoreErrorData(),
                 self::frontendCoreMessageData(),
                 self::frontendCoreActionData(),
+                self::backendCoreActionUrlEncodedData(),
             ]
         );
     }
@@ -167,6 +168,164 @@ class LoadLocale
             'FrontendCoreAction',
             'frontend core action value'
         );
+    }
+
+    public static function backendCoreActionUrlEncodedData()
+    {
+        return self::getLocaleRecord(
+            9020,
+            'Backend',
+            'Core',
+            'act',
+            'BackendCoreActionEncoded',
+            'c3-89l-c4-97ve'
+        );
+    }
+
+    public static function getEncodedTestValue()
+    {
+        return '%C3%89l%C4%97ve';
+    }
+
+    public static function getUrlTestValue()
+    {
+        return 'c3-89l-c4-97ve';
+    }
+
+    public static function getBackendInsertDataForXml()
+    {
+        return self::getLocaleRecord(
+            9578,
+            'Backend',
+            'Locale',
+            'lbl',
+            'TestInsertFromXml',
+            'This is the insert test for xml import'
+        );
+    }
+
+    public static function getItemsForXml()
+    {
+        return $items = [
+            'NonExisting' =>[
+                'Core' => [
+                    'msg' => [
+                        LoadLocale::frontendCoreMessageData()['name'] => [
+                            0 => [
+                                'id' => LoadLocale::frontendCoreMessageData()['id'],
+                                'language' => LoadLocale::frontendCoreMessageData()['language'],
+                                'application' => LoadLocale::frontendCoreMessageData()['application'],
+                                'module' => LoadLocale::frontendCoreMessageData()['module'],
+                                'type' => LoadLocale::frontendCoreMessageData()['type'],
+                                'name' => LoadLocale::frontendCoreMessageData()['name'],
+                                'value' => LoadLocale::frontendCoreMessageData()['value'],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+            'Frontend' => [
+                'Core' => [
+                    'msg' => [
+                        LoadLocale::frontendCoreMessageData()['name'] => [
+                            0 => [
+                                'id' => LoadLocale::frontendCoreMessageData()['id'],
+                                'language' => 'fr',
+                                'application' => LoadLocale::frontendCoreMessageData()['application'],
+                                'module' => LoadLocale::frontendCoreMessageData()['module'],
+                                'type' => LoadLocale::frontendCoreMessageData()['type'],
+                                'name' => LoadLocale::frontendCoreMessageData()['name'],
+                                'value' => LoadLocale::frontendCoreMessageData()['value'],
+                            ],
+                        ],
+                    ],
+                    'act' => [
+                        LoadLocale::frontendCoreActionData()['name'] => [
+                            0 => [
+                                'id' => LoadLocale::frontendCoreActionData()['id'],
+                                'language' => LoadLocale::frontendCoreActionData()['language'],
+                                'application' => LoadLocale::frontendCoreActionData()['application'],
+                                'module' => LoadLocale::frontendCoreActionData()['module'],
+                                'type' => LoadLocale::frontendCoreActionData()['type'],
+                                'name' => LoadLocale::frontendCoreActionData()['name'],
+                                'value' => LoadLocale::frontendCoreActionData()['value'],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+            'Backend' => [
+                'Locale' => [
+                    'lbl' => [
+                        LoadLocale::getBackendInsertDataForXml()['name'] => [
+                            0 => [
+                                'id' => LoadLocale::getBackendInsertDataForXml()['id'],
+                                'language' => LoadLocale::getBackendInsertDataForXml()['language'],
+                                'application' => LoadLocale::getBackendInsertDataForXml()['application'],
+                                'module' => LoadLocale::getBackendInsertDataForXml()['module'],
+                                'type' => LoadLocale::getBackendInsertDataForXml()['type'],
+                                'name' => LoadLocale::getBackendInsertDataForXml()['name'],
+                                'value' => LoadLocale::getBackendInsertDataForXml()['value'],
+                            ],
+                        ],
+                    ],
+                    'msg' => [
+                        LoadLocale::backendModuleMessageData()['name'] => [
+                            0 => [
+                                'id' => LoadLocale::backendModuleMessageData()['id'],
+                                'language' => LoadLocale::backendModuleMessageData()['language'],
+                                'application' => LoadLocale::backendModuleMessageData()['application'],
+                                'module' => LoadLocale::backendModuleMessageData()['module'],
+                                'type' => LoadLocale::backendModuleMessageData()['type'],
+                                'name' => LoadLocale::backendModuleMessageData()['name'],
+                                'value' => LoadLocale::backendModuleMessageData()['value'],
+                            ],
+                        ],
+                    ],
+                    'act' => [
+                        LoadLocale::backendModuleActionData()['name'] => [
+                            0 => [
+                                'id' => LoadLocale::backendModuleActionData()['id'],
+                                'language' => LoadLocale::backendModuleActionData()['language'],
+                                'application' => LoadLocale::backendModuleActionData()['application'],
+                                'module' => LoadLocale::backendModuleActionData()['module'],
+                                'type' => LoadLocale::backendModuleActionData()['type'],
+                                'name' => LoadLocale::backendModuleActionData()['name'],
+                                'value' => LoadLocale::backendModuleActionData()['value'],
+                            ],
+                        ],
+                    ],
+                    'NonExisting' => [
+                        LoadLocale::backendModuleMessageData()['name'] => [
+                            0 => [
+                                'id' => LoadLocale::backendModuleMessageData()['id'],
+                                'language' => LoadLocale::backendModuleMessageData()['language'],
+                                'application' => LoadLocale::backendModuleMessageData()['application'],
+                                'module' => LoadLocale::backendModuleMessageData()['module'],
+                                'type' => LoadLocale::backendModuleMessageData()['type'],
+                                'name' => LoadLocale::backendModuleMessageData()['name'],
+                                'value' => LoadLocale::backendModuleMessageData()['value'],
+                            ],
+                        ],
+                    ],
+                ],
+                'NonExisting' => [
+                    'msg' => [
+                        LoadLocale::backendModuleMessageData()['name'] => [
+                            0 => [
+                                'id' => LoadLocale::backendModuleMessageData()['id'],
+                                'language' => LoadLocale::backendModuleMessageData()['language'],
+                                'application' => LoadLocale::backendModuleMessageData()['application'],
+                                'module' => LoadLocale::backendModuleMessageData()['module'],
+                                'type' => LoadLocale::backendModuleMessageData()['type'],
+                                'name' => LoadLocale::backendModuleMessageData()['name'],
+                                'value' => LoadLocale::backendModuleMessageData()['value'],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ];
     }
 
     public static function getLocaleRecord(
