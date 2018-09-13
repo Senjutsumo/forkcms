@@ -39,11 +39,13 @@ final class ModelTest extends WebTestCase
         // TODO: Change assertEquals to assertSame after switching to doctrine
         $this->assertEquals(
             LoadLocale::backendCoreErrorData(),
-            Model::get(9001)
+            Model::get(LoadLocale::backendCoreErrorData()['id'])
         );
 
-        $this->assertNotSame(LoadLocale::backendCoreActionData()['type'], 'err');
-        $this->assertSame(LoadLocale::backendCoreActionData()['type'], 'act');
+        $this->assertEquals(
+            LoadLocale::backendCoreErrorData(),
+            Model::get(LoadLocale::backendCoreErrorData()['id'])
+        );
 
         $urlencoded =  urlencode(LoadLocale::backendCoreActionData()['value']);
         $this->assertSame(LoadLocale::backendCoreActionData()['value'], urldecode($urlencoded));
@@ -172,18 +174,7 @@ final class ModelTest extends WebTestCase
     public function testGetByName(): void
     {
         $this->assertSame(
-            9001,
-            Model::getByName(
-                LoadLocale::backendCoreErrorData()['name'],
-                LoadLocale::backendCoreErrorData()['type'],
-                LoadLocale::backendCoreErrorData()['module'],
-                LoadLocale::backendCoreErrorData()['language'],
-                LoadLocale::backendCoreErrorData()['application']
-            )
-        );
-
-        $this->assertNotSame(
-            9002,
+            LoadLocale::backendCoreErrorData()['id'],
             Model::getByName(
                 LoadLocale::backendCoreErrorData()['name'],
                 LoadLocale::backendCoreErrorData()['type'],
