@@ -302,4 +302,21 @@ final class ModelTest extends WebTestCase
         $this->assertEmpty($resultArrayNewLanguage['lbl'][0]['nl']);
         $this->assertEmpty($resultArrayNewLanguage['lbl'][0]['translation_id_nl']);
     }
+
+    public function testGetLanguagesForMultiCheckbox(): void
+    {
+        $languages = [
+            'en' => [
+                'value' => 'en',
+                'label' => '{$lblCoreEN}',
+            ],
+            'nl' => [
+                'value' => 'nl',
+                'label' => '{$lblCoreNL}',
+            ],
+        ];
+
+        $this->assertSame($languages, Model::getLanguagesForMultiCheckbox());
+        $this->assertSame($languages, Model::getLanguagesForMultiCheckbox(true));
+    }
 }
