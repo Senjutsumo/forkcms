@@ -270,4 +270,36 @@ final class ModelTest extends WebTestCase
         $this->assertNotSame('label', Model::getTypeName('act'));
         $this->assertNotSame('message', Model::getTypeName('err'));
     }
+
+    public function testGetTranslations(): void
+    {
+        // Retrieve existing translations from the database
+        $resultArray = Model::getTranslations(
+            'Frontend',
+            'Core',
+            ['act', 'err', 'lbl', 'msg'],
+            ['en'],
+            'Frontend',
+            'frontend core'
+        );
+
+        // Compare the retrieved data from the database with the test data
+        $this->assertSame(LoadLocale::frontendCoreLabelData()['name'], $resultArray['lbl'][0]['name']);
+        $this->assertSame(LoadLocale::frontendCoreLabelData()['value'], $resultArray['lbl'][0]['en']);
+        $this->assertNotSame(LoadLocale::backendModuleActionData()['name'], $resultArray['lbl'][0]['name']);
+        $this->assertNotSame(LoadLocale::backendModuleActionData()['value'], $resultArray['lbl'][0]['en']);
+
+        // Make sure new languages arrays are set as empty
+        $resultArrayNewLanguage = Model::getTranslations(
+            'Frontend',
+            'Core',
+            ['act', 'err', 'lbl', 'msg'],
+            ['en', 'nl'],
+            'Frontend',
+            'frontend core'
+        );
+
+        $this->assertEmpty($resultArrayNewLanguage['lbl'][0]['nl']);
+        $this->assertEmpty($resultArrayNewLanguage['lbl'][0]['translation_id_nl']);
+    }
 }
