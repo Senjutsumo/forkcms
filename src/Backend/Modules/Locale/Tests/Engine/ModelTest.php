@@ -355,4 +355,14 @@ final class ModelTest extends WebTestCase
 
         $this->assertSame($typesMultiCheckbox, Model::getTypesForMultiCheckbox());
     }
+
+    public function testBuildUrlQueryByFilter(): void
+    {
+        // Is the function output the same as the example variables
+        $httpBuildQuery = '&0=Fish%20go%20moo';
+        $httpBuildQueryExtraFilter = '&0=Fish%20go%20moo%20again&1=and%20again';
+
+        $this->assertSame($httpBuildQuery, Model::buildUrlQueryByFilter(['Fish go moo']));
+        $this->assertSame($httpBuildQueryExtraFilter, Model::buildUrlQueryByFilter(['Fish go moo again', 'and again']));
+    }
 }
