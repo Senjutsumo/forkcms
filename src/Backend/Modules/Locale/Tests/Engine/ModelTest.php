@@ -25,7 +25,7 @@ final class ModelTest extends WebTestCase
         );
     }
 
-    public function testConstantTypes():void
+    public function testConstantTypes(): void
     {
         $typeArray = ['act', 'err', 'lbl', 'msg'];
         $this->assertSame($typeArray, Model::TYPES);
