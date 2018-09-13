@@ -365,4 +365,9 @@ final class ModelTest extends WebTestCase
         $this->assertSame($httpBuildQuery, Model::buildUrlQueryByFilter(['Fish go moo']));
         $this->assertSame($httpBuildQueryExtraFilter, Model::buildUrlQueryByFilter(['Fish go moo again', 'and again']));
     }
+
+    public function testCreateXMLForExport(): void
+    {
+        Model::createXMLForExport(LoadLocale::getItemsForXml());
+    }
 }
