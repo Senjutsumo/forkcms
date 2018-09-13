@@ -53,12 +53,14 @@ final class ModelTest extends WebTestCase
 
     public function testExists(): void
     {
+        // Check if false id is false and existing id is true
         $this->assertFalse(Model::exists(9999999));
         $this->assertTrue(Model::exists(LoadLocale::backendCoreErrorData()['id']));
     }
 
     public function testExistsByName(): void
     {
+        // Check if translation exists
         $this->assertTrue(
             Model::existsByName(
                 LoadLocale::backendCoreActionData()['name'],
@@ -69,6 +71,7 @@ final class ModelTest extends WebTestCase
             )
         );
 
+        // Check if same translation is false when id is added to excluded id
         $this->assertFalse(
             Model::existsByName(
                 LoadLocale::backendCoreActionData()['name'],
@@ -80,6 +83,7 @@ final class ModelTest extends WebTestCase
             )
         );
 
+        // Check if true with different excluded Id
         $this->assertTrue(
             Model::existsByName(
                 LoadLocale::backendCoreActionData()['name'],
@@ -91,6 +95,7 @@ final class ModelTest extends WebTestCase
             )
         );
 
+        // Check if false with wrong name
         $this->assertFalse(
             Model::existsByName(
                 'TestWrongName',
