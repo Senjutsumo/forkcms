@@ -333,7 +333,7 @@ class Model
                             $trans[$lang] = '';
 
                             if ($numberOfLanguages == 1) {
-                                $trans['translation_id'] = '';
+                                $trans['translation_id'] = ''; // @todo check if this line is ever used
                             } else {
                                 $trans['translation_id_' . $lang] = '';
                             }
