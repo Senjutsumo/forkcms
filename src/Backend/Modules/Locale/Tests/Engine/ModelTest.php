@@ -370,4 +370,58 @@ final class ModelTest extends WebTestCase
     {
         Model::createXMLForExport(LoadLocale::getItemsForXml());
     }
+
+    public function testImportXML(): void
+    {
+        // Check if the data we are going to import is not present in the database
+        $getResult = Model::getTranslations(
+            'Backend',
+            'Locale',
+            ['act', 'err', 'lbl', 'msg'],
+            ['en'],
+            LoadLocale::getBackendInsertDataForXml()['name'],
+            LoadLocale::getBackendInsertDataForXml()['value']
+        );
+
+        $this->assertEmpty($getResult);
+
+        // Create a export, load as a string and import the file
+        $xml = Model::createXMLForExport(LoadLocale::getItemsForXml());
+        $xml = @simplexml_load_string($xml);
+        Model::importXML(
+            $xml,
+            false,
+            null,
+            null,
+            1,
+            null
+        );
+
+        // Test if the userId is fetched when the user argument is null, we need to be logged in for this
+        $this->login(self::createClient());
+        Model::importXML(
+            $xml,
+            false,
+            null,
+            ['en', 'nl', 'fr', 'lo'],
+            null,
+            null
+        );
+
+        // Check if translations are imported
+        $getResult = Model::getTranslations(
+            'Backend',
+            'Locale',
+            ['act', 'err', 'lbl', 'msg'],
+            ['en'],
+            LoadLocale::getBackendInsertDataForXml()['name'],
+            LoadLocale::getBackendInsertDataForXml()['value']
+        );
+
+        // Check if the results are the same values as the test data
+        $this->assertSame(
+            $getResult['lbl'][0]['en'],
+            LoadLocale::getBackendInsertDataForXml()['value']
+        );
+    }
 }
