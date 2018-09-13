@@ -259,7 +259,7 @@ class Model
             $parameters[] = $module;
         }
 
-        // add module to the query if needed
+        // add application to the query if needed
         if ($application) {
             $query .= ' AND l.application = ?';
             $parameters[] = $application;
