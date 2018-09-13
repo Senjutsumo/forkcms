@@ -150,41 +150,90 @@ final class ModelTest extends WebTestCase
 
     public function testUpdate(): void
     {
-        $id = 9010;
-        $name = 'FrontendCoreMessage';
-        $value = 'frontend core message value';
+        // values to use as update data
+        $newName = 'FrontendCoreMessageUpdated';
+        $newValue = 'frontend core message value updated';
 
-        $this->assertTrue(Model::exists($id));
-        $this->assertSame($name, LoadLocale::frontendCoreMessageData()['name']);
-        $this->assertSame($value, LoadLocale::frontendCoreMessageData()['value']);
+        // Be sure that the id exists before update
+        $this->assertTrue(Model::exists(LoadLocale::frontendCoreMessageData()['id']));
+
+        // Compare if name and value are different
+        $this->assertNotSame($newName, LoadLocale::frontendCoreMessageData()['name']);
+        $this->assertNotSame($newValue, LoadLocale::frontendCoreMessageData()['value']);
 
         $updatedRows = Model::update(
             LoadLocale::getLocaleRecord(
-                $id,
+                LoadLocale::frontendCoreMessageData()['id'],
                 LoadLocale::frontendCoreMessageData()['application'],
                 LoadLocale::frontendCoreMessageData()['module'],
                 LoadLocale::frontendCoreMessageData()['type'],
-                'FrontendCoreMessageUpdated',
-                'frontend core message value updated'
+                $newName,
+                $newValue
             )
         );
 
+        // We expect the updated row count to be 1
         $this->assertSame(1, $updatedRows);
-        $this->assertSame('FrontendCoreMessageUpdated', Model::get(9010)['name']);
-        $this->assertSame('frontend core message value updated', Model::get(9010)['value']);
 
+        // The inserted values need to be the same as the new name and value
+        $this->assertSame($newName, Model::get(LoadLocale::frontendCoreMessageData()['id'])['name']);
+        $this->assertSame($newValue, Model::get(LoadLocale::frontendCoreMessageData()['id'])['value']);
+
+        // Update the same data again to see if the updated rows are 0
         $updatedRows = Model::update(
             LoadLocale::getLocaleRecord(
-                $id,
+                LoadLocale::frontendCoreMessageData()['id'],
                 LoadLocale::frontendCoreMessageData()['application'],
                 LoadLocale::frontendCoreMessageData()['module'],
                 LoadLocale::frontendCoreMessageData()['type'],
-                'FrontendCoreMessageUpdated',
-                'frontend core message value updated'
+                $newName,
+                $newValue
             )
         );
 
         $this->assertSame(0, $updatedRows);
+
+        // Try to update a non existing ID
+        $updatedRows = Model::update(
+            LoadLocale::getLocaleRecord(
+                999999999,
+                LoadLocale::frontendCoreMessageData()['application'],
+                LoadLocale::frontendCoreMessageData()['module'],
+                LoadLocale::frontendCoreMessageData()['type'],
+                $newName,
+                $newValue
+            )
+        );
+
+        $this->assertSame(0, $updatedRows);
+
+        // Update to test the encoding functionality
+        $newName = 'FrontendCoreActionUpdated';
+        $newValue = LoadLocale::getEncodedTestValue();
+
+        $this->assertTrue(Model::exists(LoadLocale::frontendCoreActionData()['id']));
+        $this->assertNotSame($newName, LoadLocale::frontendCoreActionData()['name']);
+        $this->assertNotSame($newValue, LoadLocale::frontendCoreActionData()['value']);
+
+        $updatedRows = Model::update(
+            LoadLocale::getLocaleRecord(
+                LoadLocale::frontendCoreActionData()['id'],
+                LoadLocale::frontendCoreActionData()['application'],
+                LoadLocale::frontendCoreActionData()['module'],
+                LoadLocale::frontendCoreActionData()['type'],
+                $newName,
+                $newValue
+            )
+        );
+
+        $this->assertSame(1, $updatedRows);
+        $this->assertSame($newName, Model::get(LoadLocale::frontendCoreActionData()['id'])['name']);
+
+        // Check if actions are encoded
+        $this->assertSame(
+            LoadLocale::getUrlTestValue(),
+            Model::get(LoadLocale::frontendCoreActionData()['id'])['value']
+        );
     }
 
     public function testDelete(): void
