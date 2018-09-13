@@ -319,4 +319,16 @@ final class ModelTest extends WebTestCase
         $this->assertSame($languages, Model::getLanguagesForMultiCheckbox());
         $this->assertSame($languages, Model::getLanguagesForMultiCheckbox(true));
     }
+
+    public function testGetTypesForDropDown(): void
+    {
+        $labelTranslations = [
+            'act' => '{$msgCoreACT}',
+            'err' => '{$msgCoreERR}',
+            'lbl' => '{$msgCoreLBL}',
+            'msg' => '{$msgCoreMSG}',
+        ];
+
+        $this->assertSame($labelTranslations, Model::getTypesForDropDown());
+    }
 }
