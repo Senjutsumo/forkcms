@@ -331,4 +331,28 @@ final class ModelTest extends WebTestCase
 
         $this->assertSame($labelTranslations, Model::getTypesForDropDown());
     }
+
+    public function testGetTypesForMultiCheckbox(): void
+    {
+        $typesMultiCheckbox = [
+            'act' => [
+                'value' => 'act',
+                'label' => '{$msgCoreACT}',
+            ],
+            'err' => [
+                'value' => 'err',
+                'label' => '{$msgCoreERR}',
+            ],
+            'lbl' => [
+                'value' => 'lbl',
+                'label' => '{$msgCoreLBL}',
+            ],
+            'msg' => [
+                'value' => 'msg',
+                'label' => '{$msgCoreMSG}',
+            ],
+        ];
+
+        $this->assertSame($typesMultiCheckbox, Model::getTypesForMultiCheckbox());
+    }
 }
